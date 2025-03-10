@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "944409408863",
+    "project_id": "tucomercio-a4667",
+    "storage_bucket": "tucomercio-a4667.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944409408863:android:5407328fb49f98d4e732ea",
+        "android_client_info": {
+          "package_name": "com.example.mi_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvnIxA8VOvlyi8J5mIlhy6WfyCb_LuoS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944409408863:android:a908cb6e819ee98be732ea",
+        "android_client_info": {
+          "package_name": "com.example.mi_app_comercios"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvnIxA8VOvlyi8J5mIlhy6WfyCb_LuoS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
