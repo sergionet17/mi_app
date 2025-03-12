@@ -4,7 +4,7 @@ import 'firebase_options.dart';
 import 'notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:html' as html;
+//import 'dart:html' as html;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,12 +31,12 @@ void main() async {
     });
 
     // ✅ Registra el Service Worker en Web
-    if (html.window.navigator.serviceWorker != null) {
+   /* if (html.window.navigator.serviceWorker != null) {
       html.window.navigator.serviceWorker!
           .register('/firebase-messaging-sw.js')
           .then((value) => print("✅ Service Worker registrado en Web"))
           .catchError((error) => print("⚠️ Error registrando Service Worker: $error"));
-    }
+    }*/
   }
 
   runApp(MyApp());

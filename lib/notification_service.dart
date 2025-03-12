@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'dart:html' as html;
+//import 'dart:html' as html;
 
 late BuildContext globalContext;
 
@@ -28,7 +28,7 @@ class NotificationService {
   }
 
   static Future<void> showNotification({required String title, required String body}) async {
-    if (html.window.navigator.serviceWorker != null) {
+   /* if (html.window.navigator.serviceWorker != null) {
       if (html.Notification.supported) {
         html.Notification.requestPermission().then((permission) {
           if (permission == "granted") {
@@ -37,7 +37,7 @@ class NotificationService {
         });
       }
       return;
-    }
+    } */
 
     const NotificationDetails details = NotificationDetails(
       android: AndroidNotificationDetails(
