@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'dart:html' as html;
+import 'auth_service.dart';
+import 'dashboard_screen.dart'; // Importar la nueva pantalla
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +16,6 @@ void main() async {
 
   await NotificationService.init();
 
-  // ✅ Verifica la compatibilidad con Firebase Messaging
   bool isSupported = await FirebaseMessaging.instance.isSupported();
   if (isSupported) {
     FirebaseMessaging.instance.getToken().then((token) {
@@ -29,20 +30,11 @@ void main() async {
         body: message.notification?.body ?? "Has recibido un mensaje",
       );
     });
-
-    // ✅ Registra el Service Worker en Web
-   /* if (html.window.navigator.serviceWorker != null) {
-      html.window.navigator.serviceWorker!
-          .register('/firebase-messaging-sw.js')
-          .then((value) => print("✅ Service Worker registrado en Web"))
-          .catchError((error) => print("⚠️ Error registrando Service Worker: $error"));
-    }*/
   }
 
   runApp(MyApp());
 }
 
-// ✅ Estructura de la App
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -54,7 +46,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// ✅ Pantalla Principal
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -62,24 +53,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final AuthService _authService = AuthService();
   String _mensajeFirestore = "Esperando conexión...";
+  User? _user;
 
   @override
   void initState() {
     super.initState();
     _probarConexionFirestore();
+    _user = _authService.currentUser;
   }
 
-  // 🔥 Prueba de conexión con Firestore
   Future<void> _probarConexionFirestore() async {
     try {
-      // Guarda un mensaje de prueba
       await _firestore.collection('pruebas').doc('conexion').set({
         'mensaje': 'Conexión exitosa con Firestore',
         'timestamp': FieldValue.serverTimestamp(),
       });
 
-      // Lee el mensaje de prueba
       DocumentSnapshot doc = await _firestore.collection('pruebas').doc('conexion').get();
       setState(() {
         _mensajeFirestore = doc['mensaje'];
@@ -94,7 +85,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // 📩 Enviar notificación de prueba
   void _sendTestNotification() {
     NotificationService.showNotification(
       title: "Prueba Manual",
@@ -102,10 +92,36 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Future<void> _signIn() async {
+    final user = await _authService.signInWithGoogle();
+    if (user != null) {
+      setState(() {
+        _user = user;
+      });
+      print("✅ Usuario autenticado: ${user.displayName}");
+
+      // 🚀 Redirigir a DashboardScreen después de iniciar sesión
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+        );
+      });
+    }
+  }
+
+  Future<void> _signOut() async {
+    await _authService.signOut();
+    setState(() {
+      _user = null;
+    });
+    print("✅ Sesión cerrada");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Firebase & Notificaciones")),
+      appBar: AppBar(title: Text("Firebase, Notificaciones y Auth")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -119,6 +135,22 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(
             onPressed: _sendTestNotification,
             child: Text("🔔 Enviar Notificación"),
+          ),
+          SizedBox(height: 20),
+          _user == null
+              ? ElevatedButton(
+            onPressed: _signIn,
+            child: Text("🔑 Iniciar sesión con Google"),
+          )
+              : Column(
+            children: [
+              Text("👤 Usuario: ${_user!.displayName}"),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: _signOut,
+                child: Text("🚪 Cerrar sesión"),
+              ),
+            ],
           ),
         ],
       ),
