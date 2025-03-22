@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'auth_service.dart';
+import 'home_page.dart';
 import 'main.dart';
 
 class DashboardScreen extends StatelessWidget {

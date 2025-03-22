@@ -12,7 +12,20 @@
           "package_name": "com.example.mi_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "944409408863-o4efs386nd1jj2f6g73c1cijoqe90rpb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mi_app",
+            "certificate_hash": "a8f434e8a3d6f6fe395c9c79dd676fdd0c520d8c"
+          }
+        },
+        {
+          "client_id": "944409408863-ul9skuvdggq5tuieoqupshegcj2mpaev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCvnIxA8VOvlyi8J5mIlhy6WfyCb_LuoS0"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944409408863-ul9skuvdggq5tuieoqupshegcj2mpaev.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "944409408863-a01mi03bg099f529064gl23g2qnn3kp5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.miApp"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +56,12 @@
           "package_name": "com.example.mi_app_comercios"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "944409408863-ul9skuvdggq5tuieoqupshegcj2mpaev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCvnIxA8VOvlyi8J5mIlhy6WfyCb_LuoS0"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944409408863-ul9skuvdggq5tuieoqupshegcj2mpaev.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "944409408863-a01mi03bg099f529064gl23g2qnn3kp5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.miApp"
+              }
+            }
+          ]
         }
       }
     },
@@ -50,7 +92,12 @@
           "package_name": "com.example.mi_app_notificaciones"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "944409408863-ul9skuvdggq5tuieoqupshegcj2mpaev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCvnIxA8VOvlyi8J5mIlhy6WfyCb_LuoS0"
@@ -58,7 +105,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944409408863-ul9skuvdggq5tuieoqupshegcj2mpaev.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "944409408863-a01mi03bg099f529064gl23g2qnn3kp5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.miApp"
+              }
+            }
+          ]
         }
       }
     },
@@ -69,7 +128,12 @@
           "package_name": "com.example.mi_nueva_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "944409408863-ul9skuvdggq5tuieoqupshegcj2mpaev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCvnIxA8VOvlyi8J5mIlhy6WfyCb_LuoS0"
@@ -77,7 +141,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944409408863-ul9skuvdggq5tuieoqupshegcj2mpaev.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "944409408863-a01mi03bg099f529064gl23g2qnn3kp5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.miApp"
+              }
+            }
+          ]
         }
       }
     }
