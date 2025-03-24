@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../providers/cart_provider.dart';
 
 class CartScreen extends StatefulWidget {
@@ -13,8 +15,9 @@ class _CartScreenState extends State<CartScreen> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
-  void _submitOrder(BuildContext context) {
+  void _submitOrder(BuildContext context) async {
     final cart = Provider.of<CartProvider>(context, listen: false);
+    final user = FirebaseAuth.instance.currentUser;
 
     if (_addressController.text.isEmpty || _phoneController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -23,25 +26,42 @@ class _CartScreenState extends State<CartScreen> {
       return;
     }
 
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('¡Gracias por tu compra!'),
-        content: Text(
-          'Pedido enviado a:\n${_addressController.text}\nTel: ${_phoneController.text}',
+    try {
+      await FirebaseFirestore.instance.collection('orders').add({
+        'userId': user?.uid,
+        'userEmail': user?.email,
+        'address': _addressController.text,
+        'phone': _phoneController.text,
+        'items': cart.items,
+        'createdAt': Timestamp.now(),
+        'status': 'pendiente', // 👈 Estado agregado
+      });
+
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('¡Gracias por tu compra!'),
+          content: Text(
+            'Pedido enviado a:\n${_addressController.text}\nTel: ${_phoneController.text}',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                cart.clearCart();
+                Navigator.of(context, rootNavigator: true).pop(); // cerrar diálogo
+                Navigator.pop(context); // salir de CartScreen
+              },
+              child: const Text('Aceptar'),
+            )
+          ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              cart.clearCart();
-              Navigator.of(context, rootNavigator: true).pop(); // cerrar diálogo
-              Navigator.pop(context); // salir de CartScreen
-            },
-            child: const Text('Aceptar'),
-          )
-        ],
-      ),
-    );
+      );
+    } catch (e) {
+      print('❌ Error al guardar el pedido: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error al guardar el pedido')),
+      );
+    }
   }
 
   @override
@@ -53,9 +73,7 @@ class _CartScreenState extends State<CartScreen> {
         title: const Text('Tu Carrito'),
       ),
       body: cart.items.isEmpty
-          ? const Center(
-        child: Text('Tu carrito está vacío'),
-      )
+          ? const Center(child: Text('Tu carrito está vacío'))
           : Column(
         children: [
           Expanded(
